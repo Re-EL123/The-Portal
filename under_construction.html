@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maerd | Under Construction</title>
+  <style>
+    @keyframes slide {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    :root {
+      --primary: #000;
+      --background: #fff;
+      --accent: linear-gradient(270deg, red, orange, yellow, green, cyan, blue, violet);
+      --glass: rgba(255, 255, 255, 0.1);
+      --card-bg: rgba(255, 255, 255, 0.05);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    body { background: var(--primary); color: var(--background); display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+    .spectrum-strip {
+      height: 4px;
+      background: var(--accent);
+      background-size: 400% 400%;
+      animation: slide 5s ease infinite;
+    }
+    .header { padding: 1rem; text-align: center; font-size: 1.5rem; font-weight: bold; background: var(--glass); backdrop-filter: blur(10px); }
+    .center-container {
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; text-align: center; position: relative;
+      padding: 1rem;
+    }
+    .message {
+      background: var(--card-bg); backdrop-filter: blur(10px);
+      border-radius: 1rem; padding: 2rem; max-width: 400px;
+    }
+    .message h1 { font-size: 1.5rem; margin-bottom: 1rem; }
+    .message p { margin-bottom: 1rem; color: #ccc; }
+    .redirect {
+      font-size: 0.9rem; color: #aaa; margin-top: 0.5rem;
+    }
+    .bubble { position: absolute; border-radius: 50%; background: white; opacity: 0.05; filter: blur(20px); }
+    .bubble1 { width: 100px; height: 100px; top: 60px; right: -30px; }
+    .bubble2 { width: 80px; height: 80px; bottom: 100px; left: -40px; }
+    .bottom-nav {
+      display: flex; justify-content: space-around; align-items: center;
+      padding: 0.5rem 0; background: var(--glass); backdrop-filter: blur(10px);
+    }
+    .nav-item { display: flex; flex-direction: column; align-items: center; font-size: 0.75rem; color: var(--background); text-decoration: none; }
+    .nav-item img { width: 24px; height: 24px; margin-bottom: 0.25rem; }
+  </style>
+</head>
+<body>
+  <div class="spectrum-strip"></div>
+  <div class="header">Maerd Portal</div>
+  <div class="center-container">
+    <div class="message">
+      <h1>🚧 Page Under Construction</h1>
+      <p>We’re working hard to bring this service online.<br/>You’ll be redirected back to the dashboard shortly.</p>
+      <p class="redirect">Redirecting in <span id="countdown">5</span> seconds...</p>
+    </div>
+  </div>
+  <div class="bubble bubble1"></div>
+  <div class="bubble bubble2"></div>
+  <div class="bottom-nav">
+    <a href="feed.html"    class="nav-item"><img src="assets/icons/feed.svg"    alt="Feed"/><span>Feed</span></a>
+    <a href="chat.html"    class="nav-item"><img src="assets/icons/chat.svg"    alt="Chat"/><span>Chat</span></a>
+    <a href="discover.html"class="nav-item"><img src="assets/icons/discover.svg"alt="Discover"/><span>Discover</span></a>
+    <a href="wallet.html"  class="nav-item"><img src="assets/icons/wallet.svg"  alt="Wallet"/><span>Wallet</span></a>
+    <a href="dashboard.html"class="nav-item"><img src="assets/icons/dashboard.svg"alt="Dashboard"/><span>Dashboard</span></a>
+  </div>
+
+  <script>
+    let timeLeft = 5;
+    const countdown = document.getElementById('countdown');
+    const timer = setInterval(() => {
+      timeLeft--;
+      countdown.textContent = timeLeft;
+      if (timeLeft <= 0) {
+        clearInterval(timer);
+        window.location.href = "index.html"; // Redirect back to dashboard
+      }
+    }, 1000);
+  </script>
+</body>
+</html>
