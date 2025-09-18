@@ -57,7 +57,7 @@
   <div class="center-container">
     <div class="message">
       <h1>🚧 Page Under Construction</h1>
-      <p>We’re working hard to bring this service online.<br/>You’ll be redirected back to the dashboard shortly.</p>
+      <p id="pageMessage">We’re working hard to bring this service online.</p>
       <p class="redirect">Redirecting in <span id="countdown">5</span> seconds...</p>
     </div>
   </div>
@@ -68,10 +68,31 @@
     <a href="chat.html"    class="nav-item"><img src="assets/icons/chat.svg"    alt="Chat"/><span>Chat</span></a>
     <a href="discover.html"class="nav-item"><img src="assets/icons/discover.svg"alt="Discover"/><span>Discover</span></a>
     <a href="wallet.html"  class="nav-item"><img src="assets/icons/wallet.svg"  alt="Wallet"/><span>Wallet</span></a>
-    <a href="dashboard.html"class="nav-item"><img src="assets/icons/dashboard.svg"alt="Dashboard"/><span>Dashboard</span></a>
+    <a href="index.html"   class="nav-item"><img src="assets/icons/dashboard.svg"alt="Dashboard"/><span>Dashboard</span></a>
   </div>
 
   <script>
+    // Get query param "page"
+    const params = new URLSearchParams(window.location.search);
+    const page = params.get("page");
+
+    // Map page keys to readable names
+    const pageNames = {
+      branding: "Branding Tools",
+      store: "Online Store",
+      marketing: "Marketing",
+      business_setup: "Business Setup",
+      chat: "Chat",
+      discover: "Discover",
+      wallet: "Wallet"
+    };
+
+    const pageMessage = document.getElementById("pageMessage");
+    if (page && pageNames[page]) {
+      pageMessage.textContent = `${pageNames[page]} is currently under construction.`;
+    }
+
+    // Countdown + redirect
     let timeLeft = 5;
     const countdown = document.getElementById('countdown');
     const timer = setInterval(() => {
@@ -79,9 +100,9 @@
       countdown.textContent = timeLeft;
       if (timeLeft <= 0) {
         clearInterval(timer);
-        window.location.href = "index.html"; // Redirect back to dashboard
+        window.location.href = "index.html"; // back to portal home
       }
-    }, 5000);
+    }, 1000);
   </script>
 </body>
 </html>
