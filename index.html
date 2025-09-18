@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maerd | Portal</title>
+  <style>
+    @keyframes slide {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    :root {
+      --primary: #000;
+      --background: #fff;
+      --accent: linear-gradient(270deg, red, orange, yellow, green, cyan, blue, violet);
+      --glass: rgba(255, 255, 255, 0.1);
+      --card-bg: rgba(255, 255, 255, 0.05);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    body { background: var(--primary); color: var(--background); display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+    .spectrum-strip {
+      height: 4px;
+      background: var(--accent);
+      background-size: 400% 400%;
+      animation: slide 5s ease infinite;
+    }
+    .header { padding: 1rem; text-align: center; font-size: 1.5rem; font-weight: bold; background: var(--glass); backdrop-filter: blur(10px); }
+    .container {
+      flex: 1; overflow-y: auto; padding: 1rem;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; position: relative;
+    }
+    .card {
+      background: var(--card-bg); backdrop-filter: blur(10px);
+      border-radius: 1rem; padding: 1rem; display: flex; flex-direction: column; justify-content: space-between;
+      cursor: pointer; transition: background 0.3s;
+    }
+    .card:hover { background: rgba(255,255,255,0.15); }
+    .card h3 { font-size: 1rem; margin-bottom: 0.5rem; }
+    .card .value { font-size: 1.5rem; font-weight: bold; }
+    .chart {
+      grid-column: 1 / -1; height: 200px;
+      background: var(--card-bg); backdrop-filter: blur(10px);
+      border-radius: 1rem; display: flex; align-items: center; justify-content: center; color: #ccc;
+    }
+    .recent {
+      grid-column: 1 / -1; background: var(--card-bg);
+      backdrop-filter: blur(10px); border-radius: 1rem; padding: 1rem;
+    }
+    .recent h3 { margin-bottom: 0.5rem; }
+    .recent ul { list-style: none; }
+    .recent li { padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .bubble { position: absolute; border-radius: 50%; background: white; opacity: 0.05; filter: blur(20px); }
+    .bubble1 { width: 100px; height: 100px; top: 60px; right: -30px; }
+    .bubble2 { width: 80px; height: 80px; bottom: 100px; left: -40px; }
+    .bottom-nav {
+      display: flex; justify-content: space-around; align-items: center;
+      padding: 0.5rem 0; background: var(--glass); backdrop-filter: blur(10px);
+    }
+    .nav-item { display: flex; flex-direction: column; align-items: center; font-size: 0.75rem; color: var(--background); text-decoration: none; }
+    .nav-item img { width: 24px; height: 24px; margin-bottom: 0.25rem; }
+  </style>
+</head>
+<body>
+  <div class="spectrum-strip"></div>
+  <div class="header">Maerd Portal</div>
+  <div class="container">
+    <!-- Stats Cards -->
+    <div class="card" onclick="location.href='business_setup.html'">
+      <h3>Business Setup</h3>
+      <div class="value">Start</div>
+    </div>
+    <div class="card" onclick="location.href='branding.html'">
+      <h3>Branding Tools</h3>
+      <div class="value">Create</div>
+    </div>
+    <div class="card" onclick="location.href='store.html'">
+      <h3>Online Store</h3>
+      <div class="value">Build</div>
+    </div>
+    <div class="card" onclick="location.href='marketing.html'">
+      <h3>Marketing</h3>
+      <div class="value">Boost</div>
+    </div>
+    <!-- Chart Placeholder -->
+    <div class="chart">Analytics Dashboard (coming soon)</div>
+    <!-- Recent Activity -->
+    <div class="recent">
+      <h3>Recent Activity</h3>
+      <ul id="recentList">
+        <li>No recent activity</li>
+      </ul>
+    </div>
+  </div>
+  <div class="bubble bubble1"></div>
+  <div class="bubble bubble2"></div>
+  <div class="bottom-nav">
+    <a href="chat.html"    class="nav-item"><img src="assets/icons/chat.svg"    alt="Chat"/><span>Chat</span></a>
+    <a href="index.html"class="nav-item"><img src="assets/icons/discover.svg"alt="Discover"/><span>Portal</span></a>
+    <a href="wallet.html"  class="nav-item"><img src="assets/icons/wallet.svg"  alt="Wallet"/><span>Wallet</span></a>
+    <a href="profile.html"class="nav-item"><img src="assets/icons/dashboard.svg"alt="Profile"/><span>Profile</span></a>
+  </div>
+
+  <script>
+    function loadPortal() {
+      // Example dynamic content
+      const recent = document.getElementById('recentList');
+      recent.innerHTML = `
+        <li>🚀 New business registered on Maerd</li>
+        <li>🎨 Branding kit created</li>
+        <li>🛍️ First product listed in store</li>
+      `;
+    }
+    loadPortal();
+  </script>
+</body>
+</html>
