@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maerd | Job Seeking</title>
+  <style>
+    @keyframes slide {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    :root {
+      --primary: #000;
+      --background: #fff;
+      --accent: linear-gradient(270deg, red, orange, yellow, green, cyan, blue, violet);
+      --glass: rgba(255, 255, 255, 0.1);
+      --card-bg: rgba(255, 255, 255, 0.05);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    body { background: var(--primary); color: var(--background); display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+    .spectrum-strip {
+      height: 4px;
+      background: var(--accent);
+      background-size: 400% 400%;
+      animation: slide 5s ease infinite;
+    }
+    .header { padding: 1rem; text-align: center; font-size: 1.5rem; font-weight: bold; background: var(--glass); backdrop-filter: blur(10px); }
+    .container {
+      flex: 1; overflow-y: auto; padding: 1rem;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; position: relative;
+    }
+    .card {
+      background: var(--card-bg); backdrop-filter: blur(10px);
+      border-radius: 1rem; padding: 1rem; display: flex; flex-direction: column; justify-content: space-between;
+      cursor: pointer; transition: background 0.3s;
+    }
+    .card:hover { background: rgba(255,255,255,0.15); }
+    .card img { width: 100%; border-radius: 0.75rem; margin-bottom: 0.5rem; }
+    .card h3 { font-size: 1rem; margin-bottom: 0.25rem; }
+    .card .value { font-size: 0.9rem; color: #ccc; }
+    .bubble { position: absolute; border-radius: 50%; background: white; opacity: 0.05; filter: blur(20px); }
+    .bubble1 { width: 100px; height: 100px; top: 60px; right: -30px; }
+    .bubble2 { width: 80px; height: 80px; bottom: 100px; left: -40px; }
+    .bottom-nav {
+      display: flex; justify-content: space-around; align-items: center;
+      padding: 0.5rem 0; background: var(--glass); backdrop-filter: blur(10px);
+    }
+    .nav-item { display: flex; flex-direction: column; align-items: center; font-size: 0.75rem; color: var(--background); text-decoration: none; }
+    .nav-item img { width: 24px; height: 24px; margin-bottom: 0.25rem; }
+  </style>
+</head>
+<body>
+  <div class="spectrum-strip"></div>
+  <div class="header">Job Seeking</div>
+  <div class="container">
+    <!-- Re-V CV Creator -->
+    <div class="card" onclick="window.open('https://re-el123.github.io/Re-V/', '_blank')">
+      <img src="assets/media/rev.png" alt="Re-V CV Creator">
+      <h3>Re-V</h3>
+      <div class="value">CV Creator</div>
+    </div>
+  </div>
+
+  <div class="bubble bubble1"></div>
+  <div class="bubble bubble2"></div>
+
+  <div class="bottom-nav">
+    <a href="https://chatre1.akanishibiri4422.workers.dev/" class="nav-item"><img src="assets/icons/chat.svg" alt="Chat"/><span>Chatre</span></a>
+    <a href="media.html" class="nav-item"><img src="assets/icons/discover.svg" alt="Media"/><span>Media</span></a>
+    <a href="wallet.html" class="nav-item"><img src="assets/icons/wallet.svg" alt="Wallet"/><span>Wallet</span></a>
+    <a href="profile.html" class="nav-item"><img src="assets/icons/dashboard.svg" alt="Profile"/><span>Profile</span></a>
+  </div>
+</body>
+</html>
