@@ -20,6 +20,11 @@
       color: var(--background);
       display: flex; align-items: center; justify-content: center;
       height: 100vh; overflow: hidden;
+      animation: fadeIn 1s ease-in;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
     .auth-container {
       background: var(--glass);
@@ -30,11 +35,23 @@
       display: flex; flex-direction: column; gap: 1.2rem;
       border: 1px solid rgba(255,255,255,0.1);
       position: relative;
+      animation: slideUp 0.8s ease-out;
+    }
+    @keyframes slideUp {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
     .spectrum-strip {
       height: 5px; width: 100%;
       background: var(--accent);
       border-radius: 10px; margin-bottom: 1rem;
+      background-size: 400% 400%;
+      animation: gradientShift 5s linear infinite;
+    }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
     h1 {
       text-align: center; font-size: 1.8rem; font-weight: bold;
@@ -42,7 +59,9 @@
     input {
       padding: 0.8rem; border: none; border-radius: 1rem;
       outline: none; background: rgba(255,255,255,0.05); color: white;
+      transition: all 0.3s;
     }
+    input:focus { background: rgba(255,255,255,0.15); }
     input::placeholder { color: #ccc; }
     button {
       padding: 0.9rem; background: white; color: black;
@@ -59,8 +78,10 @@
       position: absolute; border-radius: 50%; background: white;
       opacity: 0.1; filter: blur(15px);
     }
-    .bubble1 { width:100px; height:100px; top:-40px; right:-40px; }
-    .bubble2 { width:70px;  height:70px;  bottom:-30px; left:-20px; }
+    .bubble1 { width:100px; height:100px; top:-40px; right:-40px; animation: float1 6s infinite alternate; }
+    .bubble2 { width:70px;  height:70px;  bottom:-30px; left:-20px; animation: float2 8s infinite alternate; }
+    @keyframes float1 { from {transform: translateY(0);} to {transform: translateY(20px);} }
+    @keyframes float2 { from {transform: translateY(0);} to {transform: translateY(-20px);} }
   </style>
 </head>
 <body>
@@ -155,10 +176,14 @@
       const email = emailInput.value.trim();
       const pass  = passInput.value.trim();
 
+      if (!email || !pass) { alert("Please fill all required fields."); return; }
+
       if (isSignup) {
         const realName  = realNameInput.value.trim();
         const surName   = surNameInput.value.trim();
         const userName  = userNameInput.value.trim();
+
+        if(!realName || !surName || !userName) { alert("All fields are required."); return; }
 
         auth.createUserWithEmailAndPassword(email, pass)
           .then(({ user }) => {
@@ -167,9 +192,8 @@
             updates[`users/${uid}`]        = { realName, surName, userName, email };
             updates[`wallets/${uid}`]      = { balance: 0 };
             updates[`transactions/${uid}`] = {};
-            return db.ref().update(updates);
+            return db.ref().update(updates).then(() => user.sendEmailVerification());
           })
-          .then(() => user.sendEmailVerification())
           .then(() => {
             authContainer.style.display   = 'none';
             verifyContainer.style.display = 'flex';
@@ -178,6 +202,7 @@
 
       } else {
         auth.signInWithEmailAndPassword(email, pass)
+          .then(() => { /* login successful */ })
           .catch(err => alert(err.message));
       }
     });
@@ -192,6 +217,26 @@
       }
     });
 
-    // Redirect on auth state changes
+    // Check verification
+    checkBtn.addEventListener('click', () => {
+      const user = auth.currentUser;
+      if(user) {
+        user.reload().then(() => {
+          if(user.emailVerified) {
+            window.location.href = 'portal.html';
+          } else {
+            alert('Email not verified yet.');
+          }
+        });
+      }
+    });
+
+    // Redirect if already logged in
     auth.onAuthStateChanged(user => {
-      if (user && user.emailVerified && !isSignup)
+      if (user && user.emailVerified) {
+        window.location.href = 'portal.html';
+      }
+    });
+  </script>
+</body>
+</html>
