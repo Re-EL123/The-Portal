@@ -31,13 +31,42 @@
       display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; position: relative;
     }
     .card {
-      background: var(--card-bg); backdrop-filter: blur(10px);
-      border-radius: 1rem; padding: 1rem; display: flex; flex-direction: column; justify-content: space-between;
-      cursor: pointer; transition: background 0.3s;
+      position: relative;
+      border-radius: 1rem; 
+      padding: 1rem; 
+      display: flex; 
+      flex-direction: column; 
+      justify-content: flex-end;
+      cursor: pointer; 
+      background-size: cover;
+      background-position: center;
+      overflow: hidden;
+      color: white;
+      min-height: 200px;
+      transition: background-size 0.6s ease; /* Smooth zoom transition */
     }
-    .card:hover { background: rgba(255,255,255,0.15); }
+    .card:hover {
+      background-size: 110%; /* Zoom in effect */
+    }
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(5px);
+      opacity: 0.7;
+      transition: opacity 0.3s;
+    }
+    .card:hover::before {
+      opacity: 0.4;
+    }
+    .card h3, .card .value {
+      position: relative;
+      z-index: 1;
+    }
     .card h3 { font-size: 1rem; margin-bottom: 0.5rem; }
     .card .value { font-size: 1.2rem; font-weight: bold; }
+
     .bubble { position: absolute; border-radius: 50%; background: white; opacity: 0.05; filter: blur(20px); }
     .bubble1 { width: 100px; height: 100px; top: 60px; right: -30px; }
     .bubble2 { width: 80px; height: 80px; bottom: 100px; left: -40px; }
@@ -47,12 +76,6 @@
     }
     .nav-item { display: flex; flex-direction: column; align-items: center; font-size: 0.75rem; color: var(--background); text-decoration: none; }
     .nav-item img { width: 24px; height: 24px; margin-bottom: 0.25rem; }
-
-    .images {
-  width: 700px;
-  height: 500px;
-  object-fit: cover;
-}
   </style>
 </head>
 <body>
@@ -61,18 +84,17 @@
   <div class="container">
     <!-- Media Categories -->
     
-    <div class="card" onclick="location.href='https://re-player.vercel.app/?page=media'">
-       <img class="images" src="assets/images/close-up-young-attractive-charismatic-woman-isolated.jpg" alt="Re-Player">
+    <div class="card" style="background-image: url('assets/images/close-up-young-attractive-charismatic-woman-isolated.jpg');" onclick="location.href='https://re-player.vercel.app/?page=media'">
       <h3>Music</h3>
       <div class="value">Listen</div>
     </div>
-    <div class="card" onclick="location.href='under-construction.html?page=videos'">
-      <img class="images" src="assets/images/people-watching-tennis-video-clip-digital-device.jpg" alt="Videos">
+
+    <div class="card" style="background-image: url('assets/images/people-watching-tennis-video-clip-digital-device.jpg');" onclick="location.href='under-construction.html?page=videos'">
       <h3>Videos</h3>
       <div class="value">Watch</div>
     </div>
-    <div class="card" onclick="location.href='under-construction.html?page=pictures'">
-      <img class="images" src="assets/media/rev.png" alt="Pictures">
+
+    <div class="card" style="background-image: url('assets/media/rev.png');" onclick="location.href='under-construction.html?page=pictures'">
       <h3>Pictures</h3>
       <div class="value">View</div>
     </div>
@@ -82,10 +104,10 @@
   <div class="bubble bubble2"></div>
 
   <div class="bottom-nav">
-    <a href="https://chatre1.akanishibiri4422.workers.dev/"    class="nav-item"><img src="assets/images/icons8-artificial-intelligence-30.png"    alt="Chat"/><span>ChatRe</span></a>
-    <a href="index.html"   class="nav-item"><img src="assets/images/icons8-portal-30 (3).png"alt="Discover"/><span>Portal</span></a>
-    <a href="wallet.html"  class="nav-item"><img src="assets/images/icons8-mobile-wallet-30.png"  alt="Wallet"/><span>Wallet</span></a>
-    <a href="profile.html" class="nav-item"><img src="assets/images/icons8-test-account-30 (1).png"alt="Profile"/><span>Profile</span></a>
+    <a href="https://chatre1.akanishibiri4422.workers.dev/" class="nav-item"><img src="assets/images/icons8-artificial-intelligence-30.png" alt="Chat"/><span>ChatRe</span></a>
+    <a href="index.html" class="nav-item"><img src="assets/images/icons8-portal-30 (3).png" alt="Discover"/><span>Portal</span></a>
+    <a href="wallet.html" class="nav-item"><img src="assets/images/icons8-mobile-wallet-30.png" alt="Wallet"/><span>Wallet</span></a>
+    <a href="profile.html" class="nav-item"><img src="assets/images/icons8-test-account-30 (1).png" alt="Profile"/><span>Profile</span></a>
   </div>
 </body>
 </html>
