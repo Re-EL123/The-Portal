@@ -60,9 +60,29 @@
     }
     .nav-item { display: flex; flex-direction: column; align-items: center; font-size: 0.75rem; color: var(--background); text-decoration: none; }
     .nav-item img { width: 24px; height: 24px; margin-bottom: 0.25rem; }
+
+    /* Loading overlay */
+    .loading-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.85); display: flex;
+      align-items: center; justify-content: center; z-index: 9999;
+      flex-direction: column; color: white; font-size: 1.2rem;
+    }
+    .spinner {
+      width: 50px; height: 50px; border: 5px solid #ccc; border-top-color: white; border-radius: 50%;
+      animation: spin 1s linear infinite; margin-bottom: 1rem;
+    }
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
+
+  <!-- Loading Overlay -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="spinner"></div>
+    <div>Loading Maerd Portal...</div>
+  </div>
+
   <div class="spectrum-strip"></div>
   <div class="header">Maerd Portal</div>
   <div class="container">
@@ -112,37 +132,35 @@
   <div class="bubble bubble1"></div>
   <div class="bubble bubble2"></div>
   <div class="bottom-nav">
-    <a href="https://chatre1.akanishibiri4422.workers.dev/"    class="nav-item"><img src="assets/images/icons8-artificial-intelligence-30.png"    alt="Chat"/><span>ChatRe</span></a>
-    <a href="portal.html"   class="nav-item"><img src="assets/images/icons8-portal-30 (3).png"alt="Discover"/><span>Portal</span></a>
-    <a href="wallet.html"  class="nav-item"><img src="assets/images/icons8-mobile-wallet-30.png"  alt="Wallet"/><span>Wallet</span></a>
-    <a href="profile.html" class="nav-item"><img src="assets/images/icons8-test-account-30 (1).png"alt="Profile"/><span>Profile</span></a>
+    <a href="https://chatre1.akanishibiri4422.workers.dev/" class="nav-item"><img src="assets/images/icons8-artificial-intelligence-30.png" alt="Chat"/><span>ChatRe</span></a>
+    <a href="portal.html" class="nav-item"><img src="assets/images/icons8-portal-30 (3).png" alt="Discover"/><span>Portal</span></a>
+    <a href="wallet.html" class="nav-item"><img src="assets/images/icons8-mobile-wallet-30.png" alt="Wallet"/><span>Wallet</span></a>
+    <a href="profile.html" class="nav-item"><img src="assets/images/icons8-test-account-30 (1).png" alt="Profile"/><span>Profile</span></a>
   </div>
 
   <script type="module">
-    js/config.js
+    import { auth, db, storage } from "./js/config.js";
 
-    
-     import { auth, db, storage } from "./js/config.js";
+    const loadingOverlay = document.getElementById('loadingOverlay');
 
-  // Example: check if logged in
-  auth.onAuthStateChanged(user => {
-    if (user) {
-      console.log("User logged in:", user.email);
-    } else {
-      console.log("No user logged in.");
-    }
-  });
-
-    
-    function loadPortal() {
-      const recent = document.getElementById('recentList');
-      recent.innerHTML = `
-        <li>🚀 New business registered on Maerd</li>
-        <li>🎨 Branding kit created</li>
-        <li>🛍️ First product listed in store</li>
-      `;
-    }
-    loadPortal();
+    // Show loading until auth state is checked
+    auth.onAuthStateChanged(user => {
+      if (!user) {
+        // Not logged in, redirect to auth page
+        window.location.href = 'auth.html';
+      } else {
+        console.log("User logged in:", user.email);
+        // Hide loading overlay
+        loadingOverlay.style.display = 'none';
+        // Load recent activity
+        const recent = document.getElementById('recentList');
+        recent.innerHTML = `
+          <li>🚀 New business registered on Maerd</li>
+          <li>🎨 Branding kit created</li>
+          <li>🛍️ First product listed in store</li>
+        `;
+      }
+    });
   </script>
 </body>
 </html>
