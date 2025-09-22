@@ -47,6 +47,12 @@
     }
     .nav-item { display: flex; flex-direction: column; align-items: center; font-size: 0.75rem; color: var(--background); text-decoration: none; }
     .nav-item img { width: 24px; height: 24px; margin-bottom: 0.25rem; }
+
+    .images {
+  width: 200px;
+  height: 300px;
+  object-fit: cover;
+}
   </style>
 </head>
 <body>
@@ -56,17 +62,17 @@
     <!-- Media Categories -->
     
     <div class="card" onclick="location.href='https://re-player.vercel.app/?page=media'">
-       <img src="assets/images/close-up-young-attractive-charismatic-woman-isolated.jpg" width="500" height="600" alt="Re-Player">
+       <img class="images" src="assets/images/close-up-young-attractive-charismatic-woman-isolated.jpg" width="500" height="600" alt="Re-Player">
       <h3>Music</h3>
       <div class="value">Listen</div>
     </div>
     <div class="card" onclick="location.href='under-construction.html?page=videos'">
-      <img src="assets/images/people-watching-tennis-video-clip-digital-device.jpg" width="500" height="600" alt="Videos">
+      <img class="images" src="assets/images/people-watching-tennis-video-clip-digital-device.jpg" width="500" height="600" alt="Videos">
       <h3>Videos</h3>
       <div class="value">Watch</div>
     </div>
     <div class="card" onclick="location.href='under-construction.html?page=pictures'">
-      <img src="assets/media/rev.png" width="500" height="600" alt="Pictures">
+      <img class="images" src="assets/media/rev.png" width="500" height="600" alt="Pictures">
       <h3>Pictures</h3>
       <div class="value">View</div>
     </div>
