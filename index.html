@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maerd | Portal</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(270deg, red, orange, yellow, green, cyan, blue, violet);
+      background-size: 400% 400%;
+      animation: gradient 6s ease infinite;
+      overflow: hidden;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: white;
+    }
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .splash {
+      text-align: center;
+      animation: fadeIn 2s ease forwards;
+    }
+    .splash h1 {
+      font-size: 3rem;
+      margin: 0;
+      letter-spacing: 2px;
+      background: -webkit-linear-gradient(white, #ddd);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .splash p {
+      margin-top: 1rem;
+      font-size: 1.2rem;
+      opacity: 0.8;
+    }
+    .loader {
+      margin: 2rem auto 0;
+      border: 6px solid rgba(255, 255, 255, 0.3);
+      border-top: 6px solid white;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1.2s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg);}
+      100% { transform: rotate(360deg);}
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="splash">
+    <h1>🌐 Maerd Portal</h1>
+    <p>Connecting Dreams to Reality</p>
+    <div class="loader"></div>
+  </div>
+
+  <script>
+    // Redirect after splash
+    setTimeout(() => {
+      window.location.href = "portal.html"; // rename your dashboard file to portal.html
+    }, 4000); // 4 seconds
+  </script>
+</body>
+</html>
