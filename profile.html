@@ -85,13 +85,15 @@
   </div>
   <div class="container">
     <!-- Cover Picture -->
-    <img src="assets/images/default-cover.jpg" alt="Cover Picture" class="cover-pic"/>
+    <img src="assets/images/cover-default.jpg" alt="Cover Picture" class="cover-pic"/>
 
     <!-- Profile Card -->
     <div class="profile-card">
-      <img src="assets/images/default-profile.png" alt="Profile Picture" class="profile-pic" onclick="document.getElementById('profilePicInput').click();"/>
+      <img src="assets/images/profile-default.png" alt="Profile Picture" class="profile-pic" onclick="document.getElementById('profilePicInput').click();"/>
       <input type="file" id="profilePicInput" accept="image/*" style="display:none"/>
+       <input type="file" id="coverPicInput" accept="image/*" style="display:none"/>
       <button class="change-btn" onclick="document.getElementById('profilePicInput').click();">Change Profile Picture</button>
+      <button class="change-btn" onclick="document.getElementById('coverPicInput').click();">Change Cover Picture</button>
       <div class="profile-fields">
         <label>Name & Surname</label>
         <input type="text" id="nameField" placeholder="Enter your full name"/>
