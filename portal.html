@@ -118,7 +118,22 @@
     <a href="profile.html" class="nav-item"><img src="assets/images/icons8-test-account-30 (1).png"alt="Profile"/><span>Profile</span></a>
   </div>
 
-  <script>
+  <script type="module">
+    js/config.js
+
+    
+     import { auth, db, storage } from "./js/config.js";
+
+  // Example: check if logged in
+  auth.onAuthStateChanged(user => {
+    if (user) {
+      console.log("User logged in:", user.email);
+    } else {
+      console.log("No user logged in.");
+    }
+  });
+
+    
     function loadPortal() {
       const recent = document.getElementById('recentList');
       recent.innerHTML = `
