@@ -71,7 +71,6 @@
     <h1 id="form-title">Login to Maerd</h1>
     <input type="text" id="realName" placeholder="Your Real Name" style="display:none" />
     <input type="text" id="surName" placeholder="Surname" style="display:none" />
-    <input type="text" id="surName" placeholder="Surname" style="display:none" />
     <input type="text" id="userName" placeholder="Preferred Username" style="display:none" />
     <input type="email" id="email" placeholder="Email Address" />
     <input type="password" id="password" placeholder="Password" />
@@ -92,19 +91,35 @@
     <div class="bubble bubble2"></div>
   </div>
 
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
   <script>
-    js/config.js
- // Initialize Firebase
-    const app  = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db   = getDatabase(app);
+    // Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyAWUXQs1W0IBT2J27eEllfT8jPtZD6Fx20",
+      authDomain: "re-el-eed0d.firebaseapp.com",
+      databaseURL: "https://re-el-eed0d-default-rtdb.firebaseio.com",
+      projectId: "re-el-eed0d",
+      storageBucket: "re-el-eed0d.appspot.com",
+      messagingSenderId: "676690470943",
+      appId: "1:676690470943:web:c18bc16fbf23445c9ecd2a",
+      measurementId: "G-BXJEJLTTD1"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db   = firebase.database();
 
     // UI Elements
     const authContainer   = document.getElementById('authContainer');
     const verifyContainer = document.getElementById('verifyContainer');
     const formTitle       = document.getElementById('form-title');
     const realNameInput   = document.getElementById('realName');
-    const surNameInput   = document.getElementById('surName');
+    const surNameInput    = document.getElementById('surName');
     const userNameInput   = document.getElementById('userName');
     const emailInput      = document.getElementById('email');
     const passInput       = document.getElementById('password');
@@ -129,6 +144,7 @@
         formTitle.textContent = 'Login to Maerd';
         realNameInput.style.display = 'none';
         surNameInput.style.display = 'none';
+        userNameInput.style.display = 'none';
         actionBtn.textContent = 'Login';
         toggleFormEl.innerHTML = "Don't have an account? <span>Sign Up</span>";
       }
@@ -140,20 +156,20 @@
       const pass  = passInput.value.trim();
 
       if (isSignup) {
-        const realName     = realNameInput.value.trim();
-        const surName = businessInput.value.trim();
+        const realName  = realNameInput.value.trim();
+        const surName   = surNameInput.value.trim();
+        const userName  = userNameInput.value.trim();
 
-        createUserWithEmailAndPassword(auth, email, pass)
+        auth.createUserWithEmailAndPassword(email, pass)
           .then(({ user }) => {
             const uid = user.uid;
-            // initialize profile, wallet, transactions
             const updates = {};
-            updates[`users/${uid}`]        = { realName, surName, email };
+            updates[`users/${uid}`]        = { realName, surName, userName, email };
             updates[`wallets/${uid}`]      = { balance: 0 };
             updates[`transactions/${uid}`] = {};
-            return update(ref(db), updates);
+            return db.ref().update(updates);
           })
-          .then(() => sendEmailVerification(auth.currentUser))
+          .then(() => user.sendEmailVerification())
           .then(() => {
             authContainer.style.display   = 'none';
             verifyContainer.style.display = 'flex';
@@ -161,35 +177,21 @@
           .catch(err => alert(err.message));
 
       } else {
-        signInWithEmailAndPassword(auth, email, pass)
+        auth.signInWithEmailAndPassword(email, pass)
           .catch(err => alert(err.message));
       }
     });
 
     // Resend verification
     resendBtn.addEventListener('click', () => {
-      sendEmailVerification(auth.currentUser)
-        .then(() => alert('Verification email resent.'))
-        .catch(err => alert(err.message));
-    });
-
-    /*/ Check if verified
-    checkBtn.addEventListener('click', () => {
-      reload(auth.currentUser).then(() => {
-        if (auth.currentUser.emailVerified) {
-          window.location.href = 'profile_setup.html';
-        } else {
-          alert('Email not verified yet.');
-        }
-      });
-    });*/
-
-    // Redirect on auth state changes
-    onAuthStateChanged(auth, user => {
-      if (user && user.emailVerified && !isSignup) {
-        window.location.href = 'portal.html';
+      const user = auth.currentUser;
+      if (user) {
+        user.sendEmailVerification()
+          .then(() => alert('Verification email resent.'))
+          .catch(err => alert(err.message));
       }
     });
-  </script>
-</body>
-</html>
+
+    // Redirect on auth state changes
+    auth.onAuthStateChanged(user => {
+      if (user && user.emailVerified && !isSignup)
