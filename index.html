@@ -36,8 +36,9 @@
       cursor: pointer; transition: background 0.3s;
     }
     .card:hover { background: rgba(255,255,255,0.15); }
-    .card h3 { font-size: 1rem; margin-bottom: 0.5rem; }
+    .card h3 { font-size: 1rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
     .card .value { font-size: 1.5rem; font-weight: bold; }
+    .card img.icon { width: 24px; height: 24px; }
     .chart {
       grid-column: 1 / -1; height: 200px;
       background: var(--card-bg); backdrop-filter: blur(10px);
@@ -67,35 +68,35 @@
   <div class="container">
     <!-- Stats Cards -->
     <div class="card" onclick="location.href='under-construction.html?page=business-setup'">
-      <h3>Business Setup</h3>
+      <h3><img src="assets/images/icons8-business-30.png" alt="Business" class="icon"/>Business Setup</h3>
       <div class="value">Start</div>
     </div>
     <div class="card" onclick="location.href='under-construction.html?page=branding'">
-      <h3>Branding Tools</h3>
+      <h3><img src="assets/images/icons8-design-30.png" alt="Branding" class="icon"/>Branding Tools</h3>
       <div class="value">Create</div>
     </div>
     <div class="card" onclick="location.href='under-construction.html?page=store'">
-      <h3>Online Store</h3>
+      <h3><img src="assets/images/icons8-online-store-30.png" alt="Store" class="icon"/>Online Store</h3>
       <div class="value">Build</div>
     </div>
     <div class="card" onclick="location.href='under-construction.html?page=marketing'">
-      <h3>Marketing</h3>
+      <h3><img src="assets/images/icons8-marketing-30.png" alt="Marketing" class="icon"/>Marketing</h3>
       <div class="value">Boost</div>
     </div>
     <div class="card" onclick="location.href='under-construction.html?page=writing'">
-      <h3>Writing</h3>
+      <h3><img src="assets/images/icons8-writing-30.png" alt="Writing" class="icon"/>Writing</h3>
       <div class="value">Excel</div>
     </div>
     <div class="card" onclick="location.href='media.html?page=media'">
-      <h3>Media</h3>
+      <h3><img src="assets/images/icons8-multimedia-30.png" alt="Media" class="icon"/>Media</h3>
       <div class="value">Feel</div>
     </div>
     <div class="card" onclick="location.href='jobs.html?page=job-seeking'">
-      <h3>Job Seeking</h3>
+      <h3><img src="assets/images/icons8-job-seeking-30.png" alt="Jobs" class="icon"/>Job Seeking</h3>
       <div class="value">Work</div>
     </div>
     <div class="card" onclick="location.href='under-construction.html?page=learning'">
-      <h3>Learning</h3>
+      <h3><img src="assets/images/icons8-learning-30.png" alt="Learning" class="icon"/>Learning</h3>
       <div class="value">Revive</div>
     </div>
     <!-- Chart Placeholder -->
